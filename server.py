@@ -1,5 +1,6 @@
 from flask import Flask, render_template, redirect, request, session
 import random
+import datetime
 
 app = Flask(__name__)
 app.secret_key = 'asecretkey'
@@ -10,7 +11,6 @@ def index():
     session['total_gold'] = 0
   if not 'logs' in session:
     session['logs'] = []
-  # session.pop('total_gold')
   return render_template('index.html')
 
 @app.route('/process_money', methods=['POST'])
@@ -38,17 +38,16 @@ def process_money():
       gold_earned = 50
 
   log = {}
+  timestamp = datetime.datetime.now().strftime("%B %d, %Y %I:%M%p")
   if gold_earned > 0:
-    log['txt'] = "You earned %d gold from the %s!" % (gold_earned, building_chosen)
-    log['del'] = 1
+    log['txt'] = "You earned %d gold from the %s! (%s)" % (gold_earned, building_chosen, timestamp)
+    log['del'] = 1,
   else:
-    log['txt'] = "Sorry. You lost %d gold from the %s..." % (50, building_chosen)
+    log['txt'] = "Sorry. You lost %d gold from the %s... (%s)" % (50, building_chosen, timestamp)
     log['del'] = -1
 
   session['total_gold'] += gold_earned
   session['logs'].append(log)
-
-  print session['logs']
 
   return redirect('/')
 
