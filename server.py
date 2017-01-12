@@ -46,7 +46,9 @@ def process_money():
     log['del'] = -1
 
   session['total_gold'] += gold_earned
-  print log
+  session['logs'].append(log)
+
+  print session['logs']
 
   return redirect('/')
 

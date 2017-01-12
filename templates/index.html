@@ -15,7 +15,9 @@
 
     <div class="row">
       <div class="col-md-12">
-        Your gold: {{session['total_gold']}}
+        <div class="total-gold">
+          Your gold: {{session['total_gold']}}
+        </div>
       </div>
     </div>
 
@@ -69,11 +71,10 @@
     <div class="row">
       <div class="col-md-12">
         <div class="logs">
-          <div class="log">Earn 15 gold for the farm! (2013/09/03) 6:15pm</div>
-          <div class="log">Earn 15 gold for the farm! (2013/09/03) 6:15pm</div>
-          <div class="log">Earn 15 gold for the farm! (2013/09/03) 6:15pm</div>
-          <div class="log">Earn 15 gold for the farm! (2013/09/03) 6:15pm</div>
-          <div class="log">Earn 15 gold for the farm! (2013/09/03) 6:15pm</div>
+          <!-- [::-1] reverses list -->
+          {% for log in (session['logs'][::-1]) %}
+            <div class="log {{'success' if log['del'] > 0 else 'failure'}}">{{log.txt}}</div>
+          {% endfor %}
         </div>
       </div>
     </div>
