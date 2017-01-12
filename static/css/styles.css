@@ -1,0 +1,13 @@
+
+.path {
+  text-align: center;
+  padding: 40px;
+  border: 1px solid #ccc;
+  min-height: 300px;
+}
+
+.logs {
+  border: 1px solid #ccc;
+  min-height: 300px;
+  padding: 20px;
+}
