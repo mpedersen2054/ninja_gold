@@ -8,6 +8,8 @@ app.secret_key = 'asecretkey'
 def index():
   if not 'total_gold' in session:
     session['total_gold'] = 0
+  if not 'logs' in session:
+    session['logs'] = []
   # session.pop('total_gold')
   return render_template('index.html')
 
@@ -35,8 +37,16 @@ def process_money():
     else:
       gold_earned = 50
 
-  print gold_earned
+  log = {}
+  if gold_earned > 0:
+    log['txt'] = "You earned %d gold from the %s!" % (gold_earned, building_chosen)
+    log['del'] = 1
+  else:
+    log['txt'] = "Sorry. You lost %d gold from the %s..." % (50, building_chosen)
+    log['del'] = -1
+
   session['total_gold'] += gold_earned
+  print log
 
   return redirect('/')
 
